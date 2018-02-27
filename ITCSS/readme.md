@@ -1,0 +1,1 @@
+Test a method: `phpunit --filter methodName ClassName path/to/file.php`
