@@ -1,8 +1,9 @@
 # ITCSS: Mở rộng và bảo trì kiến trúc CSS
-# Làm thế nào tôi làm cho CSS của tôi có thể mở rộng và bảo trì ? Đó là vấn đề của mọi front-end developer. ITCSS có câu trả lời.
+Làm thế nào tôi làm cho CSS của tôi có thể mở rộng và bảo trì ? Đó là vấn đề của mọi front-end developer. ITCSS có câu trả lời.
+
 Năm ngoái khi chúng tôi bắt đầu kế hoạc để thiết kế lại [HEROized][1] và wesite Xfive.co mới, tôi tìm kiếm một kiến trúc CSS, cho phép phát triển website và bảo trì trong tương lai dễ dàng.
 
-[CSS Modules][2] were quite young and exotic at that time and I've always considered the [Atomic Design][3] chemistry analogy to be a bit artificial. Then I came across [Harry Roberts's][4] ITCSS in the June 2015 issue of the [net magazine][5] and immediately fell in love with this simple, down to earth CSS approach.
+[CSS Modules][2] còn khá mới và mới lạ vào thời điểm đó đó và tôi luôn luôn xem xét với [Atomic Design][3] tương tự được tạo ra. Sau đó tôi đã gặp [Harry Roberts's][4] của ITCSS vào tháng 6-2015 vấn đề của [net magazine][5] và ngay lập tức yêu thích các tiếp cận CSS đơn giản.
 
 ## ITCSS là gì?
 
@@ -47,7 +48,7 @@ ITCSS vẫn còn một phần thuộc tính và nếu bạn muốn tận dụng 
 
 Tôi đã sử dụng ITCSS trong 4 dự án cho đến nay (bao gồm Xfive.co) và các tài nguyên sau đã giúp tôi hiểu hơn về nó:
 
-You can also check out [Chisel][11], our Yeoman generator for front-end and WordPress projects, which supports ITCSS.
+Bạn cũng có thể kiểm tra [Chisel][11], Yeoman bộ tạo ra của chúng tôi cho dự án front-end và WordPress, hỗ trợ ITCSS.
 
 
 ## Kinh nghiệm
