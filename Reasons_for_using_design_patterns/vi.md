@@ -20,7 +20,7 @@ Trích từ [Data & Object Factory][3]:
 
 > "Design patterns là các giải pháp lặp lại cho các vấn đề thiết kế phần mềm bạn tìm thấy 1 lần và lại 1 lần nữa trong phát triển ứng dụng thực tế. Các mẫu(Pattern) là về việc thiết kế và sự tương tác giữa các đối tượng, cũng như cung cấp một nền tảng giao tiếp giữa các phần liên quan, các giải pháp tái sử dụng được đối với các thách thức lập trình thường gặp phải."
 
-So a `Design Pattern` một sự trừu tượng hoá mục đích chung của một vấn đề, có thể được áp dụng cho một giải pháp cụ thể. Như các nhà phát triển phần mềm có xu hướng giải quyết nhiều loại vấn đề tương tự, nó có nghĩa là bất kỳ giải pháp phần mềm nào sẽ kết hợp các yếu tố tương tự từ các giải pháp khác. Tại sao lại phát minh ra. Tại sao lại đi lại lối mòn đó ? _Why reinvent the wheel?_
+Vì vậy  một `Design Pattern` là một sự trừu tượng hoá mục đích chung của một vấn đề, có thể được áp dụng cho một giải pháp cụ thể. Như các nhà phát triển phần mềm có xu hướng giải quyết nhiều loại vấn đề tương tự, nó có nghĩa là bất kỳ giải pháp phần mềm nào sẽ kết hợp các yếu tố tương tự từ các giải pháp khác. Tại sao lại phát minh ra. Tại sao lại đi lại lối mòn đó ? _Why reinvent the wheel?_
 
 ## Tài liệu tốt và hiểu nó
 
