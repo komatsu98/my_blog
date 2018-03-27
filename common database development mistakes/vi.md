@@ -38,7 +38,7 @@ Hãy thớ rằng, cũng có [những đất nước không tồn tại ](http:/
 
 Bạn thường thấy điều này trong các câu truy vấn tạo ra ORM. Nhìn vào đầu ra log từ Hibernate và bạn sẽ thấy tất cả câu truy vấn bắt đầu với:
 
-SELECT DISTINCT ...
+```SELECT DISTINCT ...``
 
 Đây là một mẹo nhỏ để đảm bảo rằng bạn không trả về những dòng dữ liệu trunhf lặp và lấy các đối tượng trùng lặp. Bạn sẽ thỉnh thoảng thấy nhứng người làm điều này tốt. Nếu bạn thấy chúng quá nhiều, thì đó thực sự là một cờ. Không phải DISTINCT là xấu hoặc không ứng dụng không chính xác. Nó ( về cả 2 cách tính) nhưng nó không là một đại diện hoặc là một cái ngăn chặn viết các câu truy vấn đúng.
 
@@ -57,21 +57,25 @@ Từ [SQL statement - “join” vs “group by and having”](https://stackover
 
 > Truy vấn đầu tiên:
 
-```SELECT userid
+```
+SELECT userid
 FROM userrole
 WHERE roleid IN (1, 2, 3)
 GROUP by userid
-HAVING COUNT(1) = 3```
+HAVING COUNT(1) = 3
+```
 
 > Thời gian truy vấn: 0.312 s
 
 > Truy vấn thứ 2:
 
-```SELECT t1.userid
+```
+SELECT t1.userid
 FROM userrole t1
 JOIN userrole t2 ON t1.userid = t2.userid AND t2.roleid = 2
 JOIN userrole t3 ON t2.userid = t3.userid AND t3.roleid = 3
-AND t1.roleid = 1```
+AND t1.roleid = 1
+```
 
 > Thời gian truy vấn: 0.016 s
 
@@ -95,14 +99,14 @@ Ví dụ:
 
 Vì vậy có 5 bảng tham gia vào liên kết Ted đến nhà tuyển dụng của anh ấy. Bạn giả sử tất cả nhân viên là Persons(Không phải tổ chức) và cung cấp các hiển thị hỗ trợ:
 
-```CREATE VIEW vw_employee AS
+CREATE VIEW vw_employee AS
 SELECT p.title, p.given_names, p.surname, p.date_of_birth, p2.party_name employer_name
 FROM person p
 JOIN party py ON py.id = p.id
 JOIN party_role child ON p.id = child.party_id
 JOIN party_role_relationship prr ON child.id = prr.child_id AND prr.type = 'EMPLOYMENT'
 JOIN party_role parent ON parent.id = prr.parent_id = parent.id
-JOIN party p2 ON parent.party_id = p2.id```
+JOIN party p2 ON parent.party_id = p2.id
 
 Và bất ngời bạn có một cái nhìn về dữ liệu rất đơn giản mà bạn muốn nhưng trên một mô hình dữ liệu có tính linh hoạt cao.
 
@@ -126,7 +130,6 @@ với
 hoặc
 
 `SELECT * FROM users WHERE username = :username`
-
 tuỳ thuộc vào nền tảng.
 
 Tối thấy cơ sở dữ liệu đó mang đến **their knees** bằng cách làm điều này. Về cơ bản, mỗi lần bất kỳ cơ sở dữ liệu hiện đại gặp một câu truy vấn mới, nó phải biên dịch nó. Nếu nó gặp một câu truy vấn trước đó, nó đưa đến cơ sở dữ liệu câu truy vấn được cache và thực hiện nó. Bằng cách thực hiện các câu truy vấn nhiều lần, nó đem đến cơ sở dữ liệu cơ hội để ra các con số và tối ưu nó phù hợp (ví dụ, bằng cách dữ các câu truy vấn đã được biên dịch trong bộ nhớ).
