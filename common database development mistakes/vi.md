@@ -4,9 +4,9 @@ _source https://stackoverflow.com/questions/621884/database-development-mistakes
 
 **1. Không sử dụng các chỉ mục thích hợp**
 
-Đây là một cái tương đối dễ dàng nhưng nó vẫn xảy ra mọi lúc. Khoá ngoài nên có chỉ số cho chúng. Nếu bạn sử dụng một trường trong WHERE bạn nên (có lẽ nên) có một chỉ mục trên nó. Các chỉ mục như vậy nên thuường bao gồm nhiều cột dựa trên các truy vấn bạn cần thực hiện.
+Đây là một điều tương đối dễ dàng nhưng nó vẫn xảy ra mọi lúc. Các khoá ngoài nên được đánh chỉ mục cho chúng. Nếu bạn sử dụng một trường trong WHERE bạn nên (có lẽ nên) có một chỉ mục trên nó. Các chỉ mục như vậy nên thuờng bao gồm nhiều cột dựa trên các truy vấn bạn cần thực hiện.
 
-**2. Không sử dụng các ràng buộc cho tham chiếuNot enforcing referential integrity**
+**2. Không sử dụng các ràng buộc cho tham chiếu**
 
 Cơ sở dữ liệu của bạn có thể thay đổi ở đây nhưng nếu cơ sở dữ liệu của bạn hỗ trợ referential integrity-- nghĩa là tất cả khoá ngoài được đảm bảo trỏ đến một thực thể đã tồn tại bạn nên sử dụng nó.
 
@@ -14,15 +14,15 @@ Nó khá là một biến để thấy sự thất bại trên cơ sở dữ li�
 
 Xem thêm ở đây:
 
-- [How important are constraints like NOT NULL and FOREIGN KEY if I’ll always control my database input with php?](https://stackoverflow.com/questions/382309/how-important-are-constraints-like-not-null-and-foreign-key-if-ill-always-contr)
-- [Are foreign keys really necessary in a database design?](https://stackoverflow.com/questions/18717/are-foreign-keys-really-necessary-in-a-database-design)
-- [Are foreign keys really necessary in a database design?](http://www.diovo.com/2008/08/are-foreign-keys-really-necessary-in-a-database-design/)
+- [Các ràng buộc NOT NULL và FOREIGN KEY quan trọng thế nào nếu bạn luôn luôn kiểm soát dữ liệu đầu vào với PHP ?](https://stackoverflow.com/questions/382309/how-important-are-constraints-like-not-null-and-foreign-key-if-ill-always-contr)
+- [Các khoá ngoài có thực sự cần thiết trong một thiết kế cơ sở dữ liệu không?](https://stackoverflow.com/questions/18717/are-foreign-keys-really-necessary-in-a-database-design)
+- [Các khoá ngoài có thực sự cần thiết trong một thiết kế cơ sở dữ liệu không?](http://www.diovo.com/2008/08/are-foreign-keys-really-necessary-in-a-database-design/)
 
-**3. Sử dụng khoá chính tự nhiên thay vì đại diện (kỹ thuật)**
+**3. Sử dụng khoá chính tự nhiên thay vì khóa đại diện (kỹ thuật)**
 
-Khoá tự nhiên là khoá dựa trên dữ liệu bên ngoài có nghĩa đó là (khó bên ngoài)duy nhất. Các ví dụ phổ biến là các code của sản phẩm, các mã code với 2 trạng thái, mã số an sinh xã hội, và nhiều hơn nữa. Khoá chính đại diện hoặc kỹ thuật là những khoá hoàn toàn không có ý nghĩa bên ngoài hệt thống. Chúng được phát minh ra hoàn toàn để xác định các thực thể và các trường tự động tăng (SQL Server, MySQL, các csdl khác) hoặc các trường tuần tự(nhất là trong Oracle).
+Khoá tự nhiên là khoá dựa trên dữ liệu bên ngoài có nghĩa đó là (khó bên ngoài)duy nhất. Các ví dụ phổ biến là các mã code của sản phẩm, các mã code với 2 trạng thái, mã số an sinh xã hội, và nhiều hơn nữa. Các khoá chính đại diện hoặc kỹ thuật là những khoá hoàn toàn không có ý nghĩa bên ngoài hệt thống. Chúng được phát minh ra hoàn toàn để xác định các thực thể và các trường tự động tăng (SQL Server, MySQL, các csdl khác) hoặc các chuỗi(nhất là trong Oracle).
 
-In my opinion you should **always** use surrogate keys. This issue has come up in these questions:
+Theo ý kiến của tôi bạn nên **luôn luôn** sử dụng các khoá đại diện. Vấn đề này được đề cập đến trong những câu hỏi này: 
 
 - [Làm thế nào bạn thích khoá chính của bạn?](https://stackoverflow.com/questions/404040/how-do-you-like-your-primary-keys)
 - [Cách tốt nhất để thực hành cho khoá chính của bảng là gì?](https://stackoverflow.com/questions/337503/whats-the-best-practice-for-primary-keys-in-tables)
@@ -30,25 +30,25 @@ In my opinion you should **always** use surrogate keys. This issue has come up i
 - [Khoá đại diện so với tự nhiên/kinh doanh](https://stackoverflow.com/questions/63090/surrogate-vs-natural-business-keys)
 - [Tôi có nên có một trường riêng cho khoá chính không ?](https://stackoverflow.com/questions/166750/should-i-have-a-dedicated-primary-key-field)
 
-Đây là một chủ đề gây nhiều tranh cãi về cái mà bạn không nhận được sự đồng ý của toàn bộ. Trong khi bạn có thể tìm thấy một vài người, người mà nghĩ khoá tự nhiên là được trong một số trường hợp, bạn sẽ không tìn thấy bất kỳ lời chỉ trích về khoá đại diện khách hơn là được cho là không cần thiết. Đó là một nhược điểm nhỏ nếu bạn hỏi tôi.
+Đây là một chủ đề gây nhiều tranh cãi về cái mà bạn không nhận được sự đồng ý của toàn bộ. Trong khi bạn có thể tìm thấy một vài người, người mà nghĩ khoá tự nhiên là tốt trong một số trường hợp, bạn sẽ không tìm thấy bất kỳ lời chỉ trích về các khoá đại diện khác được cho là không cần thiết. Đó là một nhược điểm nhỏ nếu bạn hỏi tôi.
 
 Hãy thớ rằng, cũng có [những đất nước không tồn tại ](http://en.wikipedia.org/wiki/ISO_3166-1) (ví dụ, Nam Tư).
 
 **4. Viết các câu truy vấn DISTINCT để làm việc**
 
-Bạn thường thấy điều này trong các câu truy vấn tạo ra ORM. Nhìn vào đầu ra log từ Hibernate và bạn sẽ thấy tất cả câu truy vấn bắt đầu với:
+Bạn thường thấy điều này trong các câu truy vấn tạo ra bởi ORM. Nhìn vào log đầu ra từ Hibernate và bạn sẽ thấy tất cả câu truy vấn bắt đầu với:
 
 ```SELECT DISTINCT ...``
 
-Đây là một mẹo nhỏ để đảm bảo rằng bạn không trả về những dòng dữ liệu trunhf lặp và lấy các đối tượng trùng lặp. Bạn sẽ thỉnh thoảng thấy nhứng người làm điều này tốt. Nếu bạn thấy chúng quá nhiều, thì đó thực sự là một cờ. Không phải DISTINCT là xấu hoặc không ứng dụng không chính xác. Nó ( về cả 2 cách tính) nhưng nó không là một đại diện hoặc là một cái ngăn chặn viết các câu truy vấn đúng.
+Đây là một mẹo nhỏ để đảm bảo rằng không trả về những dòng dữ liệu trùng lặp và lấy các đối tượng trùng lặp. Bạn sẽ thỉnh thoảng thấy những người làm điều này tốt. Nếu bạn thấy chúng quá nhiều, thì đó thực sự là một cờ. Không phải DISTINCT là xấu hoặc không có ứng dụng phù hợp. Nó ( về cả 2 cách tính) nhưng nó không là một đại diện hoặc là một cái ngăn chặn viết các câu truy vấn đúng.
 
 Từ [Tại sao tôt ghét DISTINCT](http://weblogs.sqlteam.com/markc/archive/2008/11/11/60752.aspx):
 
-> Where things start to go sour in my opinion is when a developer is building substantial query, joining tables together, and all of a sudden he realizes that it **looks** like he is getting duplicate (or even more) rows and his immediate response...his "solution" to this "problem" is to throw on the DISTINCT keyword and **POOF** all his troubles go away.
+> Theo ý kiến của tôti lúc mà mọi thứ bắt đầu trở nênn khó chịu là khi một nhà phát triển đang đang xây dựng một lượng truy vấn lớn, kết hợp các bảng với nhau, và bất ngờ anh ta nhận ra rằng có vẻ như anh ta đang lấy các bản ghi trùng lặp( thậm trí nhiều hơn) và phản ứng ngay lập tức của anh ta .. giải pháp của anh ta cho vấn đề này là sử dụng từ khoá DISTINCT và tất cả rắc rối đó được loại bỏ.
 
-**5. Khuyến khích gộp các tập hợp**
+**5. Khuyến khích dùng phép hợp các tập**
 
-Một lỗi phổ biến khác bở nhà phát triển cơ sở dữ liệu ứng dụng là không nhận ra phép gộp tốn chi phí hơn bao nhiêu. (mệnh đè GROUP BY) có thể được so sánh với phép hợp.
+Một lỗi phổ biến khác bởi nhà phát triển cơ sở dữ liệu ứng dụng là không nhận ra các tập tốn chi phí hơn bao nhiêu. (mệnh đè GROUP BY) có thể được so sánh với phép hợp.
 
 Để cho bạn một ý tưởng làm thế nào để phổ biến rộng rãi điều này, tôi đã viết một chủ đề nhiều lần ở đây và được hạ đánh giá rất nhiều cho nó. 
 Ví dụ:
