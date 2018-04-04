@@ -157,7 +157,7 @@ Xem thêm:
 
 **10. Chuẩn hoá quá nhiều**
 
-Điều này có thể thấy mâu thuẫn với luận điểm trước, nhưng chuẩn hoá giống như là nhiều thứ, nó chỉ là một công cụ. Nó là một. It is a means to an end and not an end in and of itself. Tôi nghĩ nhiều developer quên mất điều này và bắt đầu "means" giống như một "end". Unit testing là một ví dụ điển hình cho điều này.
+Điều này có thể thấy mâu thuẫn với luận điểm trước, nhưng chuẩn hoá giống như là nhiều thứ, nó chỉ là một công cụ. Nó không có một điểm dừng rõ ràng cho chính nó. Tôi nghĩ nhiều developer quên mất điều này và bắt đầu "means" giống như một "end". Unit testing là một ví dụ điển hình cho điều này.
 
 Tôi đã từng làm việc trên một hệ thống mà có hệ thống phân cấp rõ ràng cho các khách hàng nó giống như:
 
