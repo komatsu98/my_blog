@@ -10,7 +10,7 @@ I will not go into any details about the mechanics or implementation of any part
 
 ## What is a Design Pattern?
 
-So getting started then, what exactly is a `Design Pattern`? Here are a couple of definitions for the term:
+So getting started thờn, what exactly is a `Design Pattern`? Here are a couple of definitions for the term:
 
 Extracted from [Wikipedia][2]:
 
