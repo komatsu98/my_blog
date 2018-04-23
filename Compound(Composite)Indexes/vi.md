@@ -114,7 +114,7 @@ MySQL hiếm khi sử dụng nhiều hơn một index trong 1 lần của 1 câu
 4\. Sử dụng phần còn lại của mệnh đề WHERE lọc ra tất cả nhưng là dòng mong muốn. 
 5\. Đưa ra câu trả lời (1865-1869). 
     
-    
+    ```
     mysql>  EXPLAIN  SELECT  term
                 FROM  Presidents
                 WHERE  last_name = 'Johnson'
@@ -128,7 +128,7 @@ MySQL hiếm khi sử dụng nhiều hơn một index trong 1 lần của 1 câu
               ref: const
              rows: 2                  <-- Two 'Johnson's
             Extra: Using where
-    
+    ```
 
 ## "Index Merge Intersect"
 
@@ -139,7 +139,7 @@ OK, để bạn thực sự thông minh và quyết định rằng MySQL nên đ
 4\. Tiếp cận dữ liệu bằng cách sử dụng seq = (17) để lấy dòng dữ liệu cho  Andrew Johnson. 
 5\. Đưa ra câu trả lời (1865-1869).
     
-    
+    ```
                id: 1
       select_type: SIMPLE
             table: Presidents
@@ -150,7 +150,7 @@ OK, để bạn thực sự thông minh và quyết định rằng MySQL nên đ
               ref: NULL
              rows: 1
             Extra: Using intersect(first_name,last_name); Using where
-    
+    ```
 
 EXPLAIN thất bại để cung cấp cho các chi tiết của số dòng dữ liệu được tập hợp từ mỗi index.
 
@@ -161,7 +161,7 @@ Nó được gọi là một "hợp chất" hoặc "hỗn hợp" index vì nó c
 2\. Tiếp cận dữ liệu bằng cách sử dụng seq = (17) để lấy dòng cho  Andrew Johnson. 
 3\. Đưa ra câu trả lời (1865-1869). Thế này tốt hơn. Trong thực tế điều này thường là tốt nhất.
     
-    
+    ```
         ALTER TABLE Presidents
             (drop old indexes and...)
             ADD INDEX compound(last_name, first_name);
@@ -176,7 +176,7 @@ Nó được gọi là một "hợp chất" hoặc "hỗn hợp" index vì nó c
               ref: const,const     <-- The WHERE clause gave constants for both
              rows: 1               <-- Goodie!  It homed in on the one row.
             Extra: Using where
-    
+    ```
 
 ## "Covering": INDEX(last_name, first_name, term)
 
@@ -184,7 +184,7 @@ Nó được gọi là một "hợp chất" hoặc "hỗn hợp" index vì nó c
 1\. Đi sâu vào BTree cho index để lấy các dòng index chính xác của Johnson+Andrew; lấy seq = (17). 
 2\. Đưa ra câu trả lời (1865-1869)."dữ liệu" BTree không được bắt, nó là một cải thiện dựa trên "compound".
     
-    
+    ```
         ... ADD INDEX covering(last_name, first_name, term);
     
                id: 1
@@ -197,7 +197,7 @@ Nó được gọi là một "hợp chất" hoặc "hỗn hợp" index vì nó c
               ref: const,const
              rows: 1
             Extra: Using where; Using index   <-- Note
-    
+    ```
 
 Mọi thứ đều tương tự như sử dụng "compound", ngoại trừ việc thêm "Using index".
 
@@ -210,8 +210,9 @@ Mọi thứ đều tương tự như sử dụng "compound", ngoại trừ việ
 * Tiền tố? Đó là, INDEX(last_name(5). first_name(5)) Trả lời: Đừng bận tâm , nó hiếm khi giúp ích và thường làm đau. (Chit tiết trong chủ đề khác.) 
 
 ## Thêm ví dụ:
+
     
-    
+ 
         INDEX(last, first)
         ... WHERE last = '...' -- good (even though `first` is unused)
         ... WHERE first = '...' -- index is useless
@@ -229,7 +230,6 @@ Mọi thứ đều tương tự như sử dụng "compound", ngoại trừ việ
         INDEX(last), INDEX(last, first)
         In light of the above example, don't bother including INDEX(last).
     
-
 ## Postlog
 
 Refreshed -- Oct, 2012; more links -- Nov 2016
