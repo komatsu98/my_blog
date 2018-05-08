@@ -1,9 +1,9 @@
 [Source](https://www.percona.com/blog/2016/10/12/mysql-5-7-performance-tuning-immediately-after-installation/ "Permalink to MySQL 5.7 Performance Tuning Immediately After Installation")
 
-# MySQL 5.7 Performance Tuning Immediately After Installation
+# Điều chỉnh hiệu năng MySQL 5.7 sau khi cài đặt
 
-Đây là blog cập nhật [Stephane Combaudon's blog on MySQL performance tuning][1], và bao quát việc điều chỉnh hiệu năng MySQL 5.7 sau cài đặt.
-Một vài năm trước, Stephane Combaudon đã viết một bài viết blog trên [Ten MySQL performance tuning settings after installation ][1] nó bao gồm cho các phiên bản cũ hơn MySQL: 5.1, 5.5 và 5.6. Trong bài viết này, tôi sẽ xem xét điều chỉnh gì trong MySQL 5.7 (tập trung vào InnoDB).
+Đây là blog cập nhật [blog của Stephane Combaudon's blog trong Điều chỉnh hiệu năng MySQL][1], và bao quát việc điều chỉnh hiệu năng MySQL 5.7 sau cài đặt.
+Một vài năm trước, Stephane Combaudon đã viết một bài viết blog trên [Diều chỉnh cài đặt hiệu năng MySQL sau khi cài đặt][1] nó bao gồm cho các phiên bản cũ hơn MySQL: 5.1, 5.5 và 5.6. Trong bài viết này, tôi sẽ xem xét điều chỉnh gì trong MySQL 5.7 (tập trung vào InnoDB).
 
 Tin tức tốt là MySQL 5.7 có giá trị mặc định tốt hơn. Morgan Tocker đã tạo một [trang với một danh sách tính năng đã hoàn thành trong MySQL 5.7][2], và là một nơi tham khảo tốt. Ví dụ, các biên su là được thiết lập _theo mặc định_:
 * innodb_file_per_table=ON
@@ -98,10 +98,6 @@ Mặc định trong MySQL 5.7 mới thì tốt hơn nhiều cho khối lượng 
 ### _Related_
 
 ![][11]
-
-[Alexander Rubin][12]
-
-Alexander joined Percona in 2013. Alexander worked with MySQL since 2000 as DBA and Application Developer. Before joining Percona he was doing MySQL consulting as a principal consultant for over 7 years (started with MySQL AB in 2006, then Sun Microsystems and then Oracle). He helped many customers design large, scalable and highly available MySQL systems and optimize MySQL performance. Alexander also helped customers design Big Data stores with Apache Hadoop and related technologies.
 
 [1]: https://www.percona.com/blog/2014/01/28/10-mysql-performance-tuning-settings-after-installation/
 [2]: http://www.thecompletelistoffeatures.com/
