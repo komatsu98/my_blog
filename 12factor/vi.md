@@ -1,11 +1,11 @@
 ##Giới thiệu
-Trong thời đại hiện đại, phần mềm thông thường được phân phối như một dịch vụ, được gọi _web apps_ or _software-as-a-service_. 12 chuẩn ứng dụng là một phương pháp cho xây dựng các ứng dụng phần mềm như một dịch vụ:
+Trong thời đại ngày nay, phần mềm thông thường được phân phối như một dịch vụ, được gọi _web apps_ or _software-as-a-service_. 12 chuẩn ứng dụng là một phương pháp cho xây dựng các ứng dụng phần mềm như một dịch vụ:
 
 * Sử dụng các định dạng khai báo cho cài đặt tự động, để tối thiểu hoá thời gian và chi phí cho các developer mới tham gia dự án.
 * Có một **contract rõ ràng** với hệ điều hành cơ bản, cung cấp khả năng di động tối đã giữa các môi trường thực thi.
-* Thích hợp cho việc triển khai trên **nền tảng đám mây** hiện đại, giảm bớt sự cần thiết cho các máy chủ và quản trị viên hệ thống.
-* **Giảm thiểu sự khác nhau** giữa quá trình phát triển và sản phẩm, cho phép tiếp tục triển khai một các nhanh chóng nhất.
-* Và có thể mở rộng quy mô mà không thay đổi nhiều các công cụ, kiến trúc hoặc các phát triển.
+* Thích hợp cho việc triển khai trên **nền tảng đám mây** hiện đại, giảm bớt sự cần thiết cho các máy chủ và hệ thống quản trị.
+* **Giảm thiểu sự khác nhau** giữa quá trình phát triển và sản phẩm, cho phép sự phát triển liên tục một các nhanh chóng nhất.
+* Và có thể mở rộng quy mô mà không thay đổi nhiều các công cụ, kiến trúc hoặc phương pháp phát triển.
 
 12 phương pháp này có thể áp dụng vào ứng dụng được viết trên mọi ngôn ngữ lập trình, và nó được sử dụng bất kỳ với sự kết hợp nào của các dịch vụ sao lưu (cơ sở dữ liệu, hàng đợi, bộ nhớ cache, ...)
 
