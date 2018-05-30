@@ -113,3 +113,21 @@ Việc code cho một ứng dụng theo 12 chuẩn không phân biệt giữa d�
 
 Mỗi dịch dụ backing riêng biệt là một resource. Ví dụ, một cơ sở dữ liệu MySQL là một tài nguyên , 2 cơ sở dữ liệu MySQL( được sử dụng giữa các tầng ứng dụng) đủ điều kiện như là 2 tài nguyên riêng biệt. Ứng dụng theo 12 chuẩn xử lý các cơ sở dữ liệu giống như tài nguyên đính kèm, điều này thể hiện sự phụ thuộc không chặt chẽ của chúng với deploy được đính kèm.
 Tài nguyên có thể được đính kèm và tách ra từ deploy theo ý muốn. Ví dụ nếu cơ sở dữ liệu của ứng dụng họt động sai do có vấn đề phần cứng, quản trị viên của ứng dụng có thể tạo lên một máy chủ cơ sở dữ liệu mới được khôi phục từ bản sao lưu gần đây. Cơ sở dữ liệu của bản production hiện tại nên được tách ra và cơ sở dữ liệu mới được đính kèm tất cả đều không làm thay đổi bất kỳ đoạn code nào.
+
+## V. Build, release, run
+
+Một codebase được chuyển thành một deploy (không phải deployment) thông qua 3 giai đoạn: 
+
+* Giai đoạn _build_ là một sự chuyển đổi một repo code vào gói thực thi đã biết như là một _build_ . Sử dụng một phiên bản của code tại một commit cụ thể bởi tiến trình deploymet, 
+* Giai đoạn _release_
+* Giai đoạn _run_ (cũng giống như "runtime") chạy ứng dụng trong môi trường thực thi, 
+
+![](https://12factor.net/images/release.png)
+
+**12 chuẩn ứng dụng sử dụng tách rời giữa các giai đoạn build, release và run**. Ví dụ, nó không thể thay đổi code khi chạy, vì nó không có cách nào để quay trở lại thay đổi của giai đoạn build.
+
+Các công cụ deployment thường cung cấp các công cụ quản lý release, đáng chú ý nhất là khả năng rollback lại phiên bản release trước. Ví dụ, công cụ deployment [Capistrano](https://github.com/capistrano/capistrano/wiki)lưu trữ các bản release trong một thư mục con với tên `releases`, nơi bản release hiện tại là một symlink đến thư mục release hiện tại. Lệnh `rollback` giúp bạn dễ dàng quay trở lại bản release trước.
+
+Mỗi bản release nên luôn luôn có một ID duy nhất cho release, như là một timestamp cho release (như `2011-04-06-20:32:17` )hoặc một số tăng dần (như `v100`). Các bản release là một append-only ledger và một bản release không thể biến đổi khi nó được tạo ra. Mọi thay đổi phải tạo mới một release.
+
+Các bản build được khởi tạo bởi developer của ứng dụng bất cứ khi nào code mới được deploy. Thực thi theo thời gian chạy, bởi contrast, có thể xảy ra tự động trong trường hợp như là khởi động lại server, hoặc một tiến trình bị lỗi được khởi động lại bởi tiến trình quản lý. Vì thế, giai đoạn chạy nên giữ càng ít chi tiết càng tốt, kể từ khi các vấn đề 
