@@ -105,7 +105,7 @@ Mộ khía canh khác của quản lý cấu hình là theo nhóm. ĐÔi khi ứ
 Trong 12 yếu tố ứng dụng, env vars đóng vai trò điều khiển các env vars khác. Chúng không bao giờ được nhóm lại với nhau thành "môi trường", mà thay vào đó được quản lý độc lập cho từng deploy. Đây là một mô hình tạo nên sự thuận lợi khi nâng cấp sang nhiều deploy trong suốt vòng đời ứng dụng.
 ## Backing services
 
-Một _dịch vụ sao lưu_ là bất kỳ dịch vụ nào mà ứng dụng sử dụng trên mạng như một phần hoạt động của nó. Ví dụ bao gồm các kho lưu trữ dữ liệu (như MySQL hoặc CouchDB), hệ thống messaging/queueing (như  RabbitMQ hoặc Beanstalkd), dịch vụ SMTP cho đầu ra email (như Postfix), và hệ thống cache (như Memcached).
+Một _dịch vụ nền_ là bất kỳ dịch vụ nào mà ứng dụng sử dụng trên mạng như một phần hoạt động của nó. Ví dụ bao gồm các kho lưu trữ dữ liệu (như MySQL hoặc CouchDB), hệ thống messaging/queueing (như  RabbitMQ hoặc Beanstalkd), dịch vụ SMTP cho đầu ra email (như Postfix), và hệ thống cache (như Memcached).
 
 Backing service như cơ sở dữ liệu được quản lý theo truyền thống bởi cùng một hệ quản trị như một ứng dụng chạy. Ngoài các dịch vụ được quản lý cục bộ này, ứng dụng cũng có thể có các dịch vụ được cung cấp và quản lý bởi bên thứ 3. Ví dụ như bao gồm dịch vụ SMTP (giống như Postmark), dịch vụ thu thập số liệu (như New Relic hoặc Loggly), dịch vụ binary asset (như Amazon S3) và ngay cả các dịch vụ truy cập API( như Twitter, Google Máp, hoặc Last.fm).
 
@@ -118,16 +118,47 @@ Tài nguyên có thể được đính kèm và tách ra từ deploy theo ý mu�
 
 Một codebase được chuyển thành một deploy (không phải deployment) thông qua 3 giai đoạn: 
 
-* Giai đoạn _build_ là một sự chuyển đổi một repo code vào gói thực thi đã biết như là một _build_ . Sử dụng một phiên bản của code tại một commit cụ thể bởi tiến trình deploymet, 
-* Giai đoạn _release_
-* Giai đoạn _run_ (cũng giống như "runtime") chạy ứng dụng trong môi trường thực thi, 
+* Giai đoạn _build_ là một sự chuyển đổi một repo code vào gói thực thi đã biết như là một _build_ . Sử dụng một phiên bản của code tại một commit cụ thể bởi tiến trình deploymet, giai đoạn build sẽ lấy các phụ thuộc vendor và các biên dịch các file nhị phân và các tài nguyên.
+* Giai đoạn _release_ sử dụng các file được tạo ra bởi giai đoạn build và kết hợp cới cấu hình hiện tại của deploy.
+* Giai đoạn _run_ (cũng giống như "runtime") chạy ứng dụng trong môi trường thực thi, bằng cách chạy một tiến trình đã được lựa chọn của release
 
 ![](https://12factor.net/images/release.png)
 
-**12 chuẩn ứng dụng sử dụng tách rời giữa các giai đoạn build, release và run**. Ví dụ, nó không thể thay đổi code khi chạy, vì nó không có cách nào để quay trở lại thay đổi của giai đoạn build.
+**12 chuẩn ứng dụng sử dụng tách rời giữa các giai đoạn build, release và run**. Ví dụ, nó không thể thay đổi code khi chạy, vì nó không có cách nào để truyền những thay đổi trở lại gai đoạn build.
 
 Các công cụ deployment thường cung cấp các công cụ quản lý release, đáng chú ý nhất là khả năng rollback lại phiên bản release trước. Ví dụ, công cụ deployment [Capistrano](https://github.com/capistrano/capistrano/wiki)lưu trữ các bản release trong một thư mục con với tên `releases`, nơi bản release hiện tại là một symlink đến thư mục release hiện tại. Lệnh `rollback` giúp bạn dễ dàng quay trở lại bản release trước.
 
-Mỗi bản release nên luôn luôn có một ID duy nhất cho release, như là một timestamp cho release (như `2011-04-06-20:32:17` )hoặc một số tăng dần (như `v100`). Các bản release là một append-only ledger và một bản release không thể biến đổi khi nó được tạo ra. Mọi thay đổi phải tạo mới một release.
+Mỗi bản release nên luôn luôn có một ID duy nhất cho release, như là một timestamp cho release (như `2011-04-06-20:32:17` )hoặc một số tăng dần (như `v100`). Các bản release là một bản ghi chỉ thêm vào cuối và một bản release không thể biến đổi khi nó được tạo ra. Mọi thay đổi phải tạo mới một release.
 
-Các bản build được khởi tạo bởi developer của ứng dụng bất cứ khi nào code mới được deploy. Thực thi theo thời gian chạy, bởi contrast, có thể xảy ra tự động trong trường hợp như là khởi động lại server, hoặc một tiến trình bị lỗi được khởi động lại bởi tiến trình quản lý. Vì thế, giai đoạn chạy nên giữ càng ít chi tiết càng tốt, kể từ khi các vấn đề 
+Các bản build được khởi tạo bởi developer của ứng dụng bất cứ khi nào code mới được deploy. Thực thi theo thời gian chạy, bởi contrast, có thể xảy ra tự động trong trường hợp như là khởi động lại server, hoặc một tiến trình bị lỗi được khởi động lại bởi tiến trình quản lý. Vì thế, giai đoạn chạy nên giữ càng ít chi tiết càng tốt, vì các vấn đề ngăn chặn ứng dụng hoạt động bất kỳ lúc nào và làm hỏng hệ thống khi không có developer sẵn sàng. Giai đoạn build có thể phức tạp hơn vì các lỗi luôn luôn xảy ra với developer người mà đang thực hiện deploy
+
+## VI. Process
+
+Ứng dụng đươc thực thi trong môi trường thực thi như là một hoặc nhiều tiến trình
+
+Trong trường hợp đơn giản nhất, code là một một script độc lập, môi trường thực thi là máy tính cá nhân của developer với một ngôn ngữ được cài đặt chạy, và tiến trình được khởi động thông qua câu lệnh (ví dụ `python my_script.py`). Mặt khác , một bản production được deploy cho một ứng dụng phức tạp có thể sử dụng nhiều loại tiến trình, được khởi tạo từ 0 hoặc có thể có nhiều tiến trình đang chạy.
+
+Các tiến trình tuân theo 12 chuẩn có dạng không trạng thái và không chia sẻ. Bất kỳ dữ liệu nào cần lưu trữ lâu dài phải được lưu trữ ở dịch vụ backing có trạng thái, thông thường là cơ sở dữ liệu.
+
+BỘ nhớ hoặc hệ thống file của tiến trình có thể được sử dụng một cache nhỏ gọn, giao dịch đơn. Ví dụ tải xuống một file lớn, thao tác trên đó và lưu trữ kết quả thực hiện vào cơ sở dữ liệu. 12 chuẩn ứng dụng không bao giờ giả định bất kỳ cái gì đã được cache trong bộ nhớ hoặc trên ổ đĩa sẽ tiện lợi cho yêu cầu hoặc công việc sau này -- với nhiều tiến trình của mỗi loại đang chạy, khả năng cao lf một yêu cầu tương lai sẽ được phục vụ bởi một tiến trình khác. Ngay cả khi đang chỉ chạy một tiến trình, một khởi động lại (được kích hoặc bởi deploy code, thay đổi cấu hình hoặc thay đổi vị trí của môi trường thực thi tiến trình sang một vị trí vật lý khác) sẽ luôn luôn xoá sạch tất cả trạng thái của cục bộ (ví dụ như bộ nhớ và các filesystem).
+
+Các đóng gói asset giống như **django-assetpackager** sử dụng filesystem như một bộ nhớ cache cho biên dịch các asset. Một ứng dụng tuân theo 12 chuẩn có xu hướng thực hiện biên dịch này trong cả giai đoạn build. Các bộ đóng gói asset giống như **Jammit** và **Rails asset pipeline** có thể được cấu hình thành các gói asset trong giai đoạn build.
+
+Một số hệ thống web dựa vào "sticky sessions" đó là việc cache dữ liệu phiên người dùng trong bộ nhớ của tiến trình ứng dụng và đợi các yêu cầu tiếp từ khách như thế được điều hướng đến cùng một tiến trình. "Sticky session" là một sự vi phạm của 12 chuẩn và không nên sử dụng hoặc phụ thuộc vào nó. Các dữ liệu trạng thái là giải pháp tốt cho một nơi lưu trữ liệu có quy định về thời gian hết hạn như Memcached hoặc Redis
+
+## VII. Port binding 
+#### Cung cấp các dịch vụ thông qua cổng
+
+Các ứng dụng web đôi khi được thực thi bên trong một webserver container. Ví dụ, ứng dụng php có thể chạy giống như là một module bên trong Apache HTTPD hoặc các ứng dụng Java chạy bên trong Tomcat.
+
+Ứng dụng tuân theo 12 chuẩn hoàn toàn được độc lập và không phụ thuộc và injection chạy của webserver trong môi trường thực thi để tạo ra một dịch vụ web-facing. Ứng dụng web cung cấp HTTP như làm một dịch vụ bởi găn một cổng và lắng nghe yêu cầu đến cổng đó.
+
+Trong môi trường phát triển cục bộ, deveploper truy cập vào URL giống như `http://localhost:5000/` để truy cập vào dịch vụ được cung cấp bởi ứng dụng của họ. Trong triển khai, một lớp điều hướng xử lý các yêu cầu điều hướng từ hostname public đến cổng web xử lý.
+
+Điều này thông thường được thực hiện bằng cách sử dụng các khai báo phụ thuộc để thêm vào một thư viện webserver vào ứng dụng, giống như Tornado cho Python, Thin cho Ruby, hoặc Jetty cho Java và ngôn ngữ chuẩn JVM khác. Điều này hoàn toàn xảy ra trong phạm vi người dùng, đó là trong code ứng dụng. Quy định với môi trường thực thi là gắn với một cổng để phục vụ các yêu cầu.
+
+HTTP không chỉ là dịch vụ duy nhất được cung cấp bằng cách binding qua cổng. Gần đây bất kỳ loại phần mềm server nào cũng có thể chạy thông qua tiến trình kết nối với một cổng và chờ các yêu cầu đến. Ví dụ bao gồm ejabberd (XMPP), và Redis (giao thức Redis).
+
+Cũng cần chú ý rằng phương pháp kết nối qua cổng cũng có nghĩa là một ứng dụng có thể trở thành một dịch vụ backing cho một ứng dụng khác, bằng cách cung cấp URL cho ứng dụng backing như một tài nguyên để xử lý trong cấu hình cho ứng dụng sử dụng.
+
+
