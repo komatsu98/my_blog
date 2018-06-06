@@ -161,4 +161,143 @@ HTTP không chỉ là dịch vụ duy nhất được cung cấp bằng cách bi
 
 Cũng cần chú ý rằng phương pháp kết nối qua cổng cũng có nghĩa là một ứng dụng có thể trở thành một dịch vụ backing cho một ứng dụng khác, bằng cách cung cấp URL cho ứng dụng backing như một tài nguyên để xử lý trong cấu hình cho ứng dụng sử dụng.
 
+## VIII. Concurrency
+### Mở rộng thông qua mô hình tiến trình
+
+Mọi chương trình máy tính, mỗi khi chạy, được đại diện bởi một hoặc nhiều tiến trình. Các ứng dụng web đã thực hiện đa dạng các mẫu thực thi tiến trình. Ví dụ, tiến trình chạy PHP là tiến trình con của Apache, được bắt đầu dựa trên nhu cầu, được yêu cầu bởi số lượng request. Các tiến trình Java thực hiện ngược lại, với JVM cung cấp một tiến trình uber lớn để lưu trữ một lượng lớn block của các tài nguyên hệ thống (CPU và bộ nhớ) khi khởi động, với concurrency được quản lý nội bộ thông qua các luồng. Trong cả 2 trường hợp, các tiến trình chạy chỉ hiển thị một cách tối thiểu cho các developer của ứng dụng.
+
+![Scale is expressed as running processes, workload diversity is expressed as process types.](https://12factor.net/images/process-types.png)
+
+**Trong ứng dụng theo 12 chuẩn, các tiến trình là class đầu tiên.**  Tiến trình trong ứng dụng theo 12 chuẩn lấy mạnh từ [the unix process model for running service daemons](https://adam.herokuapp.com/past/2011/5/9/applying_the_unix_process_model_to_web_apps/).  Sử dụng mô hình này, developer có thể kiến trúc ứng dụng của họ để xử lý một khối lượng các công việc khác nhau bằng cách chỉ định từng loại công việc cho một *loại tiến trình*. Ví dụ, các request HTTP có thể được xử lý bởi một tiến trình web và các task nền chạy dài được xử lý bởi một tiến trình worker.
+
+Điều này không loại trừ các tiến trình riêng lẻ từ các tiến trình xử lý nội bộ của chính chúng, thông qua các luồng bên trong bộ runtime VM, hoặc mô hình async/envented được tìm thấy trong các công cụ như [EventMachine](http://rubyeventmachine.com/), [Twisted](http://twistedmatrix.com/trac/), hoặc [Node.js](http://nodejs.org/).  Nhưng một máy ảo(VM) cá nhân chỉ có thể phát triển quá lớn (theo chiều dọc), nên ứng dụng cũng phải có khả năng mở rộng nhiều tiến trình cùng chạy trên nhiều máy chủ vật lý.
+
+Mô hình tiến trình thực sự hiệu quả khi nó đến thời điểm mở rộng.  [share-nothing, horizontally partitionable nature of twelve-factor app processes](./processes)nghĩa là thêm nhiều concurrency là một hành động đơn giản và tin cậy.  Danh sách các loại tiến trình và số của các tiến trình của mỗi loại được biết đến như là *process formation*.
+
+Các tiến trình ứng dụng theo 12 chuẩn [không nên chạy ở chế độ nềnshould never daemonize](http://dustin.github.com/2010/02/28/running-processes.html) hoặc ghi vào các file PID.  thay vào đõ, dựa vào hệ thống quản lý tiến trình của hệ điều hành (giống như [systemd](https://www.freedesktop.org/wiki/Software/systemd/), một trình quản lý tiến trình phân tán trên nền tảng đám mây, hoặc một công cụ giống như [Foreman](http://blog.daviddollar.org/2011/05/06/introducing-foreman.html) trong phát triển) để quản lý [output streams](./logs), phản hồi của tiến trình bị crash, và xử lý  quá trình khởi động và tắt do người dùng khởi tạo.
+
+## IX. Disposability
+### Maximize robustness with fast startup and graceful shutdown
+
+**Các tiến trình ứng dụng theo 12 chuẩn[processes](./processes) là *disposable*, nghĩa là chúng có thể được bắt đầu hoặc dùng lại tại một thời điểm thông báo**. Điều này tạo điều kiện mở rộng mềm dẻo nhanh, triển khai nhanh chóng [code](./codebase) hoặc thay đổi [cấu hình](./config), và ổn định của các bản triển khai sản phẩm.
+
+Các tiến trình nên cố gắng để **giảm thiểu tối đa thời gian khởi động**.  Lý tưởng nhất, một tiến trình mất 1 vài giây từ lúc khởi động command để thực thi cho đến khi tiến trình được thực hiện và sẵn sàng nhận các request hoặc các job.  Thời gian khởi động ngắn được cung cấp sự nhanh chong cho tiến trình bản [release](./build-release-run) và mở rộng;và nó hỗ trợ mạnh mẽ, bởi vì trình quản lý tiến trình có thể dễ dàng di chuyển các tiến trình đến các máy vật lý mới khi được bảo hành.
+
+Các tiến trình **được tắt nhẹ nhàng khi chúng nhận một tín hiệu [SIGTERM](http://en.wikipedia.org/wiki/SIGTERM)** từ trình quản lý tiến trình.  Ví dụ một tiến trình web, For a web process, một quá trình tắt nhẹ nhàng bằng cách ngừng lắng nghe trên các cổng (do đó từ chối bất kỳ request mới nào), cho phép bất kỳ tiến trình hiện tại nào kết thúc và sau đó kết thúc.  Ngụ ý trong mô hình này là các request HTTP là ngắn ( không quá một vài giây), hoặc trong trường hợp đợi lâu, client không nên cố gắng kết nối lại khi kết nối bị mất.
+
+Với một tiến trình worker, quá trình tắt nhẹ nhàng(graceful shutdown ) đạt được bằng cách return lại job hiện tại cho hàng đợi work.  Ví dụ, trên woker [RabbitMQ](http://www.rabbitmq.com/) có thể gửi một [`NACK`](http://www.rabbitmq.com/amqp-0-9-1-quickref.html#basic.nack);trên [Beanstalkd](http://kr.github.com/beanstalkd/), job được trả về queue tự động bất cứ khi nào một worker ngắt kết nối. Khóa hệ thống nền giống như [tạm dừng Job](https://github.com/collectiveidea/delayed_job#readme) cần phải chắc chắn để bản release của chúng khóa bản ghi job.  Ngụ ý trong mô hình này là tất cả các job đều là [reentrant](http://en.wikipedia.org/wiki/Reentrant_%28subroutine%29), thường đạt được bằng cách bao gói lại các kết quả trong một giao dịch, hoặc thực hiện thao tác [idempotent](http://en.wikipedia.org/wiki/Idempotence).
+
+Các tiến trình cũng nên **có sự ổn định trước sự cố bất ngờ**, trong trường hợp phần cứng lỗi.  Mặc dù đây là sự xuất hiện ít phổ biến hơn việc graceful shutdown với `SIGTERM`, nó vẫn có thể xảy ra. Một cách tiếp cần được đề xuất sử dụng hệ thống queueing backend mạnh mẽ, giống như Beanstalkd, điều đó trả về các job cho queue khi các client mất kế nối hoặc bị timeout.  Mỗi cách, ứng dụng theo 12 chuẩn được thiết kế để xử lý các kết thúc bất ngờ hoặc không nhẹ nhàng.  [Các thiết kế bị crash](http://lwn.net/Articles/191059/) đưa khái niệm này vào [kết quả logic](http://docs.couchdb.org/en/latest/intro/overview.html).
+
+## X. Dev/prod parity
+### Keep development, staging, and production as similar as possible
+
+Historically, there have been substantial gaps between development (a developer making live edits to a local [deploy](./codebase) of the app) and production (a running deploy of the app accessed by end users).  These gaps manifest in three areas:
+
+* **The time gap:** A developer may work on code that takes days, weeks, or even months to go into production.
+* **The personnel gap**: Developers write code, ops engineers deploy it.
+* **The tools gap**: Developers may be using a stack like Nginx, SQLite, and OS X, while the production deploy uses Apache, MySQL, and Linux.
+
+**The twelve-factor app is designed for [continuous deployment](http://avc.com/2011/02/continuous-deployment/) by keeping the gap between development and production small.**  Looking at the three gaps described above:
+
+* Make the time gap small: a developer may write code and have it deployed hours or even just minutes later.
+* Make the personnel gap small: developers who wrote code are closely involved in deploying it and watching its behavior in production.
+* Make the tools gap small: keep development and production as similar as possible.
+
+Summarizing the above into a table:
+
+<table>
+  <tr>
+    <th></th>
+    <th>Traditional app</th>
+    <th>Twelve-factor app</th>
+  </tr>
+  <tr>
+    <th>Time between deploys</th>
+    <td>Weeks</td>
+    <td>Hours</td>
+  </tr>
+  <tr>
+    <th>Code authors vs code deployers</th>
+    <td>Different people</td>
+    <td>Same people</td>
+  </tr>
+  <tr>
+    <th>Dev vs production environments</th>
+    <td>Divergent</td>
+    <td>As similar as possible</td>
+  </tr>
+</table>
+
+[Backing services](./backing-services), such as the app's database, queueing system, or cache, is one area where dev/prod parity is important.  Many languages offer libraries which simplify access to the backing service, including *adapters* to different types of services.  Some examples are in the table below.
+
+<table>
+  <tr>
+    <th>Type</th>
+    <th>Language</th>
+    <th>Library</th>
+    <th>Adapters</th>
+  </tr>
+  <tr>
+    <td>Database</td>
+    <td>Ruby/Rails</td>
+    <td>ActiveRecord</td>
+    <td>MySQL, PostgreSQL, SQLite</td>
+  </tr>
+  <tr>
+    <td>Queue</td>
+    <td>Python/Django</td>
+    <td>Celery</td>
+    <td>RabbitMQ, Beanstalkd, Redis</td>
+  </tr>
+  <tr>
+    <td>Cache</td>
+    <td>Ruby/Rails</td>
+    <td>ActiveSupport::Cache</td>
+    <td>Memory, filesystem, Memcached</td>
+  </tr>
+</table>
+
+Developers sometimes find great appeal in using a lightweight backing service in their local environments, while a more serious and robust backing service will be used in production.  For example, using SQLite locally and PostgreSQL in production; or local process memory for caching in development and Memcached in production.
+
+**The twelve-factor developer resists the urge to use different backing services between development and production**, even when adapters theoretically abstract away any differences in backing services.  Differences between backing services mean that tiny incompatibilities crop up, causing code that worked and passed tests in development or staging to fail in production.  These types of errors create friction that disincentivizes continuous deployment.  The cost of this friction and the subsequent dampening of continuous deployment is extremely high when considered in aggregate over the lifetime of an application.
+
+Lightweight local services are less compelling than they once were.  Modern backing services such as Memcached, PostgreSQL, and RabbitMQ are not difficult to install and run thanks to modern packaging systems, such as [Homebrew](http://mxcl.github.com/homebrew/) and [apt-get](https://help.ubuntu.com/community/AptGet/Howto).  Alternatively, declarative provisioning tools such as [Chef](http://www.opscode.com/chef/) and [Puppet](http://docs.puppetlabs.com/) combined with light-weight virtual environments such as [Docker](https://www.docker.com/) and [Vagrant](http://vagrantup.com/) allow developers to run local environments which closely approximate production environments. The cost of installing and using these systems is low compared to the benefit of dev/prod parity and continuous deployment.
+
+Adapters to different backing services are still useful, because they make porting to new backing services relatively painless.  But all deploys of the app (developer environments, staging, production) should be using the same type and version of each of the backing services.
+
+## XI. Logs
+### Treat logs as event streams
+
+*Logs* provide visibility into the behavior of a running app.  In server-based environments they are commonly written to a file on disk (a "logfile"); but this is only an output format.
+
+Logs are the [stream](https://adam.herokuapp.com/past/2011/4/1/logs_are_streams_not_files/) of aggregated, time-ordered events collected from the output streams of all running processes and backing services.  Logs in their raw form are typically a text format with one event per line (though backtraces from exceptions may span multiple lines).  Logs have no fixed beginning or end, but flow continuously as long as the app is operating.
+
+**A twelve-factor app never concerns itself with routing or storage of its output stream.**  It should not attempt to write to or manage logfiles.  Instead, each running process writes its event stream, unbuffered, to `stdout`.  During local development, the developer will view this stream in the foreground of their terminal to observe the app's behavior.
+
+In staging or production deploys, each process' stream will be captured by the execution environment, collated together with all other streams from the app, and routed to one or more final destinations for viewing and long-term archival.  These archival destinations are not visible to or configurable by the app, and instead are completely managed by the execution environment.  Open-source log routers (such as [Logplex](https://github.com/heroku/logplex) and [Fluentd](https://github.com/fluent/fluentd)) are available for this purpose.
+
+The event stream for an app can be routed to a file, or watched via realtime tail in a terminal.  Most significantly, the stream can be sent to a log indexing and analysis system such as [Splunk](http://www.splunk.com/), or a general-purpose data warehousing system such as [Hadoop/Hive](http://hive.apache.org/).  These systems allow for great power and flexibility for introspecting an app's behavior over time, including:
+
+* Finding specific events in the past.
+* Large-scale graphing of trends (such as requests per minute).
+* Active alerting according to user-defined heuristics (such as an alert when the quantity of errors per minute exceeds a certain threshold).
+
+## XII. Admin processes
+### Run admin/management tasks as one-off processes
+
+The [process formation](./concurrency) is the array of processes that are used to do the app's regular business (such as handling web requests) as it runs.  Separately, developers will often wish to do one-off administrative or maintenance tasks for the app, such as:
+
+* Running database migrations (e.g. `manage.py migrate` in Django, `rake db:migrate` in Rails).
+* Running a console (also known as a [REPL](http://en.wikipedia.org/wiki/Read-eval-print_loop) shell) to run arbitrary code or inspect the app's models against the live database.  Most languages provide a REPL by running the interpreter without any arguments (e.g. `python` or `perl`) or in some cases have a separate command (e.g. `irb` for Ruby, `rails console` for Rails).
+* Running one-time scripts committed into the app's repo (e.g. `php scripts/fix_bad_records.php`).
+
+One-off admin processes should be run in an identical environment as the regular [long-running processes](./processes) of the app.  They run against a [release](./build-release-run), using the same [codebase](./codebase) and [config](./config) as any process run against that release.  Admin code must ship with application code to avoid synchronization issues.
+
+The same [dependency isolation](./dependencies) techniques should be used on all process types.  For example, if the Ruby web process uses the command `bundle exec thin start`, then a database migration should use `bundle exec rake db:migrate`.  Likewise, a Python program using Virtualenv should use the vendored `bin/python` for running both the Tornado webserver and any `manage.py` admin processes.
+
+Twelve-factor strongly favors languages which provide a REPL shell out of the box, and which make it easy to run one-off scripts.  In a local deploy, developers invoke one-off admin processes by a direct shell command inside the app's checkout directory.  In a production deploy, developers can use ssh or other remote command execution mechanism provided by that deploy's execution environment to run such a process.
+
+
+
 
