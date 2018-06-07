@@ -177,9 +177,9 @@ Mô hình tiến trình thực sự hiệu quả khi nó đến thời điểm m
 Các tiến trình ứng dụng theo 12 chuẩn [không nên chạy ở chế độ nềnshould never daemonize](http://dustin.github.com/2010/02/28/running-processes.html) hoặc ghi vào các file PID.  thay vào đõ, dựa vào hệ thống quản lý tiến trình của hệ điều hành (giống như [systemd](https://www.freedesktop.org/wiki/Software/systemd/), một trình quản lý tiến trình phân tán trên nền tảng đám mây, hoặc một công cụ giống như [Foreman](http://blog.daviddollar.org/2011/05/06/introducing-foreman.html) trong phát triển) để quản lý [output streams](./logs), phản hồi của tiến trình bị crash, và xử lý  quá trình khởi động và tắt do người dùng khởi tạo.
 
 ## IX. Disposability
-### Maximize robustness with fast startup and graceful shutdown
+### Tối đa hoá sức mạnh với việc khởi động nhanh và tắt nhẹ nhàng
 
-**Các tiến trình ứng dụng theo 12 chuẩn[processes](./processes) là *disposable*, nghĩa là chúng có thể được bắt đầu hoặc dùng lại tại một thời điểm thông báo**. Điều này tạo điều kiện mở rộng mềm dẻo nhanh, triển khai nhanh chóng [code](./codebase) hoặc thay đổi [cấu hình](./config), và ổn định của các bản triển khai sản phẩm.
+**Các tiến trình ứng dụng theo 12 chuẩn là *disposable*, nghĩa là chúng có thể được bắt đầu hoặc dùng lại tại một thời điểm thông báo**. Điều này tạo điều kiện mở rộng mềm dẻo nhanh, triển khai nhanh chóng [code](./codebase) hoặc thay đổi [cấu hình](./config), và ổn định của các bản triển khai sản phẩm.
 
 Các tiến trình nên cố gắng để **giảm thiểu tối đa thời gian khởi động**.  Lý tưởng nhất, một tiến trình mất 1 vài giây từ lúc khởi động command để thực thi cho đến khi tiến trình được thực hiện và sẵn sàng nhận các request hoặc các job.  Thời gian khởi động ngắn được cung cấp sự nhanh chong cho tiến trình bản [release](./build-release-run) và mở rộng;và nó hỗ trợ mạnh mẽ, bởi vì trình quản lý tiến trình có thể dễ dàng di chuyển các tiến trình đến các máy vật lý mới khi được bảo hành.
 
@@ -190,52 +190,52 @@ Với một tiến trình worker, quá trình tắt nhẹ nhàng(graceful shutdo
 Các tiến trình cũng nên **có sự ổn định trước sự cố bất ngờ**, trong trường hợp phần cứng lỗi.  Mặc dù đây là sự xuất hiện ít phổ biến hơn việc graceful shutdown với `SIGTERM`, nó vẫn có thể xảy ra. Một cách tiếp cần được đề xuất sử dụng hệ thống queueing backend mạnh mẽ, giống như Beanstalkd, điều đó trả về các job cho queue khi các client mất kế nối hoặc bị timeout.  Mỗi cách, ứng dụng theo 12 chuẩn được thiết kế để xử lý các kết thúc bất ngờ hoặc không nhẹ nhàng.  [Các thiết kế bị crash](http://lwn.net/Articles/191059/) đưa khái niệm này vào [kết quả logic](http://docs.couchdb.org/en/latest/intro/overview.html).
 
 ## X. Dev/prod parity
-### Keep development, staging, and production as similar as possible
+### Giữ các bản development, staging, và production càng giống nhau càng tốt
 
-Historically, there have been substantial gaps between development (a developer making live edits to a local [deploy](./codebase) of the app) and production (a running deploy of the app accessed by end users).  These gaps manifest in three areas:
+Trong lịch sử, có những khoảng cách giữa bản development (một developer thực hiện chỉnh sửa trực tiếp trên bản [deploy](./codebase) local của ứng dụng) và bản production (một bản deploy đang chạy của ứng dụng đầu cuối).  Những khoảng cách này được biểu hiện trong 3 mặt:
 
-* **The time gap:** A developer may work on code that takes days, weeks, or even months to go into production.
-* **The personnel gap**: Developers write code, ops engineers deploy it.
-* **The tools gap**: Developers may be using a stack like Nginx, SQLite, and OS X, while the production deploy uses Apache, MySQL, and Linux.
+* **Khoảng cách thời gian:** một developer có thể làm việc trên code mất vài ngày, vài tuần, thậm chí hàng tháng để ra được bản production.
+* **Khoảng cách về nhân sự**: Các developer viết code, Các ops engineers triển khai nó.
+* **Khoảng cách về công cụ**: Các developers có thể sử dụng một nhóm như là Nginx, SQLite, and OS X, trong khi bản production được triển khai sử dụng Apache, MySQL, và Linux.
 
-**The twelve-factor app is designed for [continuous deployment](http://avc.com/2011/02/continuous-deployment/) by keeping the gap between development and production small.**  Looking at the three gaps described above:
+**Ứng dụng tuân theo 12 chuẩn được thiết kế cho [việc triển khai liên tục ](http://avc.com/2011/02/continuous-deployment/) bằng cách giữ cho khoảng cách giữa bản development và production nhỏ.**  Nhìn vào 3 khoảng cách được mô tả ở trên:
 
-* Make the time gap small: a developer may write code and have it deployed hours or even just minutes later.
-* Make the personnel gap small: developers who wrote code are closely involved in deploying it and watching its behavior in production.
-* Make the tools gap small: keep development and production as similar as possible.
+* Làm khoảng cách thời giản nhỏ: một developer có thể viết code và nó được triển khai sau vài giờ hoặc vài phút.
+* Làm cho khoảng cách nhân sự nhỏ: các developer người mà viết code có liên hệ chặt chẽ trong việc triển khai và xem xét các hoạt động trong production.
+* Làm cho khoảng cách công cụ nhỏ: Giữ cho bản development và production càng giống nhau càng tốt.
 
-Summarizing the above into a table:
+Tổng kết trong bảng dưới:
 
 <table>
   <tr>
     <th></th>
-    <th>Traditional app</th>
-    <th>Twelve-factor app</th>
+    <th>Ứng dụng truyền thống</th>
+    <th>Ứng dụng theo 12 chuẩn</th>
   </tr>
   <tr>
-    <th>Time between deploys</th>
-    <td>Weeks</td>
-    <td>Hours</td>
+    <th>Thời gian giữa các bản deploy</th>
+    <td>tuần</td>
+    <td>giờ</td>
   </tr>
   <tr>
-    <th>Code authors vs code deployers</th>
-    <td>Different people</td>
+    <th>Code của tác giả và code của developẻ</th>
+    <td>Khác nhau về con người</td>
     <td>Same people</td>
   </tr>
   <tr>
-    <th>Dev vs production environments</th>
-    <td>Divergent</td>
-    <td>As similar as possible</td>
+    <th>Môi trường Dev và production</th>
+    <td>khác nhau </td>
+    <td>Càng giống nhau càng tốt</td>
   </tr>
 </table>
 
-[Backing services](./backing-services), such as the app's database, queueing system, or cache, is one area where dev/prod parity is important.  Many languages offer libraries which simplify access to the backing service, including *adapters* to different types of services.  Some examples are in the table below.
+[Backing services](./backing-services), giống như là cơ sở dữ liệu, hệ thống queueing , hoặc cache, là môt nơi mà dev/prod được coi là rất quan trọng.  Nhiều ngôn ngữ cung cấp các thư viện giúp đơn giản hoá quyền truy cập vào các dịch vụ nền, bảo gồm *adapters* để khác nhau về loại dịch vụ.  Một vài ví dụ được thể hiện bảng dưới
 
 <table>
   <tr>
-    <th>Type</th>
-    <th>Language</th>
-    <th>Library</th>
+    <th>Loại</th>
+    <th>Ngôn ngữ</th>
+    <th>Thư viện</th>
     <th>Adapters</th>
   </tr>
   <tr>
@@ -258,35 +258,35 @@ Summarizing the above into a table:
   </tr>
 </table>
 
-Developers sometimes find great appeal in using a lightweight backing service in their local environments, while a more serious and robust backing service will be used in production.  For example, using SQLite locally and PostgreSQL in production; or local process memory for caching in development and Memcached in production.
+Các developer đôi khi thấy rất tuyệt khi sử dụng các dịch vụ nền nhẹ trong môi trường local, trong khi các dịch vụ nền chuẩn được sử dụng ở bản production.  Ví dụ, sử dụng SQLite locally và PostgreSQL trong bản production; hoặc bộ nhớ tiến trình local cho quá trình cache trong bản development và Memcached trong production.
 
-**The twelve-factor developer resists the urge to use different backing services between development and production**, even when adapters theoretically abstract away any differences in backing services.  Differences between backing services mean that tiny incompatibilities crop up, causing code that worked and passed tests in development or staging to fail in production.  These types of errors create friction that disincentivizes continuous deployment.  The cost of this friction and the subsequent dampening of continuous deployment is extremely high when considered in aggregate over the lifetime of an application.
+**Developer tuân theo 12 chuẩn chống lại việc sử dụng các dịch vụ nền khác nhau giữa môi trường development và production**, ngày cả khi các adapter thích nghi với bất cứ sự khác nhau nào trong dịch vụ nền.  Sự khac nhau giữa các dịch vụ nền có nghĩa là các tính không tương thích nhỏ sẽ tăng nên, làm cho code hoạt động và vượt quá việc test trong môi trường development hoặc staging nhưng sai trong môi trường production.  Các loại lỗi này tạo ra rào cản làm mất sự thống nhất trong quá trình phát triển.  Chi phí của rào cản này và sự giảm nhẹ tiếp theo của việc tiếp tục triển khai là lớn khi được xem xét tổng thể trong suốt vòng đời ứng dụng.
 
-Lightweight local services are less compelling than they once were.  Modern backing services such as Memcached, PostgreSQL, and RabbitMQ are not difficult to install and run thanks to modern packaging systems, such as [Homebrew](http://mxcl.github.com/homebrew/) and [apt-get](https://help.ubuntu.com/community/AptGet/Howto).  Alternatively, declarative provisioning tools such as [Chef](http://www.opscode.com/chef/) and [Puppet](http://docs.puppetlabs.com/) combined with light-weight virtual environments such as [Docker](https://www.docker.com/) and [Vagrant](http://vagrantup.com/) allow developers to run local environments which closely approximate production environments. The cost of installing and using these systems is low compared to the benefit of dev/prod parity and continuous deployment.
+Các dịch vụ nhẹ trên local ít hấp dẫn hơn trước.  Các dịch vụ nền hiện đại như Memcached, PostgreSQL, và RabbitMQ không khó trong việc cài đặt và chạy nhờ các hệ thống đóng gói hiện đại, như [Homebrew](http://mxcl.github.com/homebrew/) và [apt-get](https://help.ubuntu.com/community/AptGet/Howto).  Ngoài ra, các công cụ cho phép khai báo như [Chef](http://www.opscode.com/chef/) và [Puppet](http://docs.puppetlabs.com/) kết hợp với môi trường ảo nhẹ như [Docker](https://www.docker.com/) và [Vagrant](http://vagrantup.com/) cho phép các developer chạy trên môi trường local gần đúng với môi trường production. Chi phí cài đặt và sử dụng của các hệ thống này là thấp so với lợi ích dev/prod và việc triển khai liên tục.
 
-Adapters to different backing services are still useful, because they make porting to new backing services relatively painless.  But all deploys of the app (developer environments, staging, production) should be using the same type and version of each of the backing services.
+Các Adapter cho các dịch vụ nền khác nhau vẫn hữu dụng, vì nó làm cho việc chuyển sang các dịch vụ nền mới tương đối không vất vả.  Nhưng tất cả các bản deploy của ứng dụng (developer environments, staging, production) nên sử dụng loại và phiên bản giống nhau cho mỗi dịch vụ nền.
 
 ## XI. Logs
-### Treat logs as event streams
+### Coi các log như là các luồng sự kiện
 
-*Logs* provide visibility into the behavior of a running app.  In server-based environments they are commonly written to a file on disk (a "logfile"); but this is only an output format.
+*Logs* cung cấp khả năng hiển thị hoạt động của ứng dụng đang chạy.  Trong môi trường trên máy chủ, chúng thường được ghi vào một file trên ổ đĩa (một "logfile"); nhưng đây chỉ là định dạng đầu ra.
 
-Logs are the [stream](https://adam.herokuapp.com/past/2011/4/1/logs_are_streams_not_files/) of aggregated, time-ordered events collected from the output streams of all running processes and backing services.  Logs in their raw form are typically a text format with one event per line (though backtraces from exceptions may span multiple lines).  Logs have no fixed beginning or end, but flow continuously as long as the app is operating.
+Logs là [luồng](https://adam.herokuapp.com/past/2011/4/1/logs_are_streams_not_files/) của sự kiện tổng hợp, các sự kiện được sắp xếp theo thời gian được thu thập từ luồng đầu ra của tất cả các tiến trìn và dịch vụ nền đang chạy.  Các Log dạng thô thường là định dạng văn bản với mỗi sự kiện trên mỗi dòng ( mặc dù backtraces từ các  exception có thể kéo dài nhiều dòng).  Các log không có bắt đầu và kết thúc cố định, nhưng luồng là liên tục miễn là ứng dụng đang hoạt động.
 
-**A twelve-factor app never concerns itself with routing or storage of its output stream.**  It should not attempt to write to or manage logfiles.  Instead, each running process writes its event stream, unbuffered, to `stdout`.  During local development, the developer will view this stream in the foreground of their terminal to observe the app's behavior.
+**Một ứng dụng theo 12 chuẩn không bao giờ quan tâm đến việc định tuyến hoặc lưu trữ luồng đầu ra của nó.**  Nó không nên cố gắng ghi hoặc quản lý file log.  Thay vào đó, mỗi tiến trình ghi chúng vào luồng sự kiện, không bị chặn vào `stdout`.  Trong quá trình phát triển local, developer sẽ xem luồng này ở termianl để quan sát hoạt động của ứng dụng.
 
-In staging or production deploys, each process' stream will be captured by the execution environment, collated together with all other streams from the app, and routed to one or more final destinations for viewing and long-term archival.  These archival destinations are not visible to or configurable by the app, and instead are completely managed by the execution environment.  Open-source log routers (such as [Logplex](https://github.com/heroku/logplex) and [Fluentd](https://github.com/fluent/fluentd)) are available for this purpose.
+Trong các bản deploy của  staging hoặc production , mỗi luồng tiến trình sẽ được bắt bởi môi trường thực thi, được xem xét cùng với tất cả các luồng khác từ ứng dụng và được định tuyến một hoặc nhiều điểm cuối để xem và lưu trữ lâu dài.  Những điểm lưu trữ này không hiển thị hoặc cấu hình bởi ứng dụng và thay vào đó được quản lý hoàn toàn bởi môi trường thực thi. Log của router Open-source (giống như [Logplex](https://github.com/heroku/logplex) và [Fluentd](https://github.com/fluent/fluentd)) sẵn sàng cho mục đích này.
 
-The event stream for an app can be routed to a file, or watched via realtime tail in a terminal.  Most significantly, the stream can be sent to a log indexing and analysis system such as [Splunk](http://www.splunk.com/), or a general-purpose data warehousing system such as [Hadoop/Hive](http://hive.apache.org/).  These systems allow for great power and flexibility for introspecting an app's behavior over time, including:
+Luồng sự kiện của ứng dụng có thể được định tuyến đến một file và được xem trực tiếp qua terminal.  Quan trọng nhất, luồng có thể được gửi tới hệ thống phân tích và index  giống như [Splunk](http://www.splunk.com/), hoặc một hệ thống kho dữ liệu đa năng như[Hadoop/Hive](http://hive.apache.org/).  Những hệ thống này cho phép sức mạnh và sự linh hoạt tuyệt vời cho việc phân tích hoạt động ứng dụng theo thời gian, bao gồm: 
 
-* Finding specific events in the past.
-* Large-scale graphing of trends (such as requests per minute).
-* Active alerting according to user-defined heuristics (such as an alert when the quantity of errors per minute exceeds a certain threshold).
+* Tìm sự kiện của thể trong quá khứ.
+* Tạo đồ thị có quy mô lớn theo xu hướng (như là các request trêm phút).
+* Cảnh báo hoạt động theo chuẩn đoán do người dùng xác định( chẳng hạn thông báo khi số lượng lỗi mỗi phút vượt ngưỡng nhất định).
 
-## XII. Admin processes
-### Run admin/management tasks as one-off processes
+## XII. Các tiến trình Admin
+### Chạy các task admin/management như là tiến trình 1 lần
 
-The [process formation](./concurrency) is the array of processes that are used to do the app's regular business (such as handling web requests) as it runs.  Separately, developers will often wish to do one-off administrative or maintenance tasks for the app, such as:
+[Thông tin tiến trình](./concurrency) là một danh sách các tiến trình được sự dụng để thực hiện công việc business thông thường ( chẳng hạn như xử lý các request web) khi nó chạy.  Đặc biệt, các developer sẽ muốn thực hiện các task quản trị hoặc bảo trì một lần cho ứng dụng, chẳng hạn như:
 
 * Running database migrations (e.g. `manage.py migrate` in Django, `rake db:migrate` in Rails).
 * Running a console (also known as a [REPL](http://en.wikipedia.org/wiki/Read-eval-print_loop) shell) to run arbitrary code or inspect the app's models against the live database.  Most languages provide a REPL by running the interpreter without any arguments (e.g. `python` or `perl`) or in some cases have a separate command (e.g. `irb` for Ruby, `rails console` for Rails).
