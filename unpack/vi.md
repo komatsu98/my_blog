@@ -2,8 +2,8 @@
 
 # Giải nén dữ liệu nhị phân trong PHP
 
-Làm việc với các file nhị phân trong PHP là một việc hiếm khi được yêu cầu. Tuy nhiên . Tuy nhiên khi cần các tính năng 'pack' và 'unpack
- trong PHP có thể giúp bạn rất nhiều. Để thiết lập giai đoạn, chúng tôi sẽ bắt đầu với một vấn đề trong lập trình, điều này sẽ giữa cho cuộc thảo luận cùng với ngữ cảnh liên quan. Vấn đề ở đây là : Chúng ta muốn viết một hàm để lấy một bức ảnh làm đối số và cho chúng ta biết file đó có phải là một ảnh GIF không; mà không liên quan tới extension của file. Chúng ta không sử dụng bất kỳ hàm nào của thư viện GD.  
+Làm việc với các file nhị phân trong PHP là một việc hiếm khi được yêu cầu.Tuy nhiên khi cần các tính năng 'pack' và 'unpack
+ trong PHP có thể giúp bạn rất nhiều. Để thiết lập giai đoạn, chúng tôi sẽ bắt đầu với một vấn đề trong lập trình, điều này sẽ giúp cho cuộc thảo luận cùng với bối cảnh liên quan với nhau. Vấn đề ở đây là : Chúng ta muốn viết một hàm để lấy một bức ảnh làm đối số và cho chúng ta biết file đó có phải là một ảnh GIF không; mà không liên quan tới extension của file. Chúng ta không sử dụng bất kỳ hàm nào của thư viện GD.  
 
 #### Một header file của ảnh GIF
 
