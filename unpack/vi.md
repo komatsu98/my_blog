@@ -7,7 +7,7 @@ Làm việc với các file nhị phân trong PHP là một việc hiếm khi đ
 
 #### Một header file của ảnh GIF
 
-Với yêu cầu chúng ta không được phép sử sụng bất kỳ hàm nào của đồ hoạ, để giải quyết vấn đề chúng ta cần lấy dự liệu liên quan từ chínhh file ảnh GIF. Không giống như của file HTM hoặc XML hoặc định dạng text khác , một file GIF và hầu hết các định dạng khác của ảnh được lưu trữ dưới một định dạng nhị phân. Hầu hết các file nhị phân mang một header đầu đầu file cá mà cung cấp các thông tin meta về file cụ thể. Chúng ta có thể sử dụng thông tin đó để tìm ra loại file hoặc các thứ khác, giống như chiều cao, chiều rộng trong một file GIF. Một loại header raw thông thường của GIF được hiển thị bên dưới, sử dụng một editor cho hex như là [WinHex][1]. 
+Với yêu cầu chúng ta không được phép sử sụng bất kỳ hàm nào của đồ hoạ, để giải quyết vấn đề chúng ta cần lấy dự liệu liên quan từ chínhh file ảnh GIF. Không giống như của file HTM hoặc XML hoặc định dạng text khác , một file GIF và hầu hết các định dạng khác của ảnh được lưu trữ dưới một định dạng nhị phân. Hầu hết các file nhị phân mang một header đầu đầu file cá mà cung cấp các thông tin meta về file cụ thể. Chúng ta có thể sử dụng thông tin đó để tìm ra loại file hoặc các thứ khác, giống như chiều cao, chiều rộng trong một file GIF. Một loại header thô thông thường của GIF được hiển thị bên dưới, sử dụng một editor cho hex như là [WinHex][1]. 
 
 ![][2]
 
