@@ -55,7 +55,7 @@ Một số site không có thẻ thẻ meta description. Wikipedia là một tro
 
 Bạn có thể chỉ viết với độ dài mà bạn nghĩ là lý tưởng cho bất kỳ trang nào (trong suy luận), và nếu snippet bị cắt, đừng lo lắng về nó. Có thể dấu ba châm (...) được thêm vào sau. Tôi đang nói đùa, nhưng thực tế việc cắt giảm không phải là cái chết ngọt ngào. Một mô tả(description) hay nên lôi kéo mọi người muốn đọc nhiều hơn.
 
-## (3) Chop everything at 155 characters
+## (3)Tách mọi thứ về 155 ký tự
 
 Bạn có thể quay trở lại và chuyển mọi thứ về 155 ký tự. Tôi nghĩ rằng đây là thời gian bị tốn nhiều và có thể kết quả tìm kiếm các snippet tệ hơn. Nếu bạn muốn viết lại ngắn hơn thẻ Meta Descriptions cho các trang quan trọng của bạn, điều đó hoàn toàn hợp lý, nhưng hãy nhớ rằng một vài kết quả vẫn hiển đoạn snippet dài hơn và tình trạng này sẽ tiếp tục tăng lên.
 
@@ -63,7 +63,7 @@ Bạn có thể quay trở lại và chuyển mọi thứ về 155 ký tự. Tô
 
 Có thể viết môt tả(description) tốt ở cả 2 độ dài không? TÔi nghĩ rằng, with some care and planning. Tôi sẽ không nhất thiết đề xuất điều này cho mọi trang đơn, nhưng có thể cũng có cách ăn hết cả miếng to, hoặc ăn 1 nửa nó...
 
-## The 150/150 approach
+## Hướng đến 150/150
 
 Tôi bị ám ảnh một chút với kiểu "inverted pyramid" viết gần đây. Đây là một kiểu theo dạng báo chí nơi mà bạn bắt đầu với phần dẫn hoặc tóm tắt điểm chính của bạn và sau đó chia nhỏ các chi tiết, dữ liệu và ngữ cảnh. Mặc dù cách tiếp cận này rất phù hợp với web, nguồn gốc đến từ các hạn chế trong các bản hiển thị. Bạn không bao giờ biết khi nào trình soạn thảo của bạn sẽ phải cắt ngắn bài viết của bạn để vừa với không gian có sẵn, nên phong cách kim tự tháp ngược giúp đảm bảo phần quan trọng nhất sẽ được bỏ qua.
 
@@ -77,7 +77,7 @@ Vào tháng 10, chúng ta đã báo cáo rằng Google tăng snippet tìm kiếm
 
 ### DÒng 2 (122 chars.)
 
-Theo nghiên cứu mới của chúng tôi (5/2018), giới hạn quay trở lại 155-160 ký tự. characters. SEO nên thích ứng với những sự thay đổi này thế nào ?
+Theo nghiên cứu mới của chúng tôi (5/2018), giới hạn quay trở lại 155-160 ký tự. SEO nên thích ứng với những sự thay đổi này thế nào ?
 
 Dòng 1 có một bản ngắn của của câu chuyện và hi vọng người tìm kiếm biết họ tìm đúng hướng. Dòng 2 đi ssau vào chi tiết và đưa ra đủ dữ liệu(hy vong) hấp dẫn. Nếu Google sử dụng đủ dài mô tả, nó sẽ hoạt động tốt, nhưng nếu không, chúng ta không tệ hơn khi thực hiện.
 
