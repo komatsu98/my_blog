@@ -1,8 +1,8 @@
 # Việc học code thực sự đã dạy tôi những điều gì ?
 
-Tôi phải thừa nhận điều đó. Tôi yêu việc code. Nhưng không phải luôn luôn theo cách như thế. Trong thực tế, tôi là **một bản sao hoàn hảo**. Tôi đã bắt đầu thích nó chỉ khi tôi bị mắc kẹt với nó quá lâu đến nỗi tôi bắt đầu để thành thạo nó.
+Tôi phải thừa nhận điều đó. Tôi yêu việc code. Nhưng không phải lúc nào cũng vậy. Trong thực tế, tôi là **một bản sao hoàn hảo**. Tôi đã bắt đầu thích nó chỉ khi tôi bị mắc kẹt với nó quá lâu đến nỗi tôi bắt đầu để thành thạo nó.
 
-Để rõ ràng hơn, viết code là điều duy nhất mà tôi từng làm nơi mà bạn dành phần lớn thời gian cho "sự thất bại". Code hỏng là một điều bình thường và sửa nó, tìm lỗi, xây dựng những thứ hoạt động trơn tru đòi hỏi sự kiên nhẫn, nghiên cứu, tập trung và kiên trì. Nhưng những bài học kính nghiệm đó cho phép bạn tiến bộ. 
+Rõ ràng, viết code là điều duy nhất mà tôi từng làm nơi mà bạn dành phần lớn thời gian cho "sự thất bại". Code hỏng là một điều bình thường và sửa nó, tìm lỗi, xây dựng những thứ hoạt động trơn tru đòi hỏi sự kiên nhẫn, nghiên cứu, tập trung và kiên trì. Nhưng những bài học kính nghiệm đó cho phép bạn tiến bộ. 
 
 Khi chúng ta già đi, niềm tin sẽ lấy mất động lực của chúng ta. Thái độ và kỳ vọng của chúng ta bắt đầu đến tới giới hạn, thường vô thức. Ngay cả khi tâm trí của chúng ta chấp nhận khoa học thần kinh, thì những niềm tin trong tiềm thức của chúng ta đã không tiếp thu kiến thức này. Trên thực tế, chúng ta thậm chí còn không ý thức được sự lý do hợp lý đi qua hệ thần kinh của chúng ta, về tại sao chúng ta không tiếp nhận được những kiến thức và kỹ năng mới.
 
@@ -23,7 +23,7 @@ Trong nhiều năm, tôi đã nghĩ rằng bạn đã "đạt vị trí rất ca
 
 Tôi bắt đầu nghiên cứu thêm, và nhận ra rằng rất nhiều coder tự học, và không tự xem mình là những người có năng khiếu đặc biệt. Giống như tất cả kỹ năng, ngoại lệ cho những người có năng khiếu. Nhưng họ là những ngoại lệ. Những người tốt và giỏi cứ tiếp tục làm những việc đó lặp đi lặp lại, cho đến khi họ đủ giỏi để làm bất cứ điều gì họ muốn.
 
-Tôi bắt đầu thấy một mô hình. Như là một "luật sư phục hồi". Tôi đã nói rằng "Bạn phải thật sự thông minh để trở thành một luật sư". Tôi không đồng ý. Nếu bạn suy ngẫm về nó, tôi chắc rằng bạn đã gặp những người thông minh và không thông minh trong mọi tầng lớp xã hội và đáng ngạc nhiên, trong cùng một tầng lớp. Theo mặt khác, một số người mà bạn cho là thông minh đế làm bất cứ cái gì họ làm hoá ra lại là những người rất bình thường. 
+Tôi bắt đầu thấy một mô hình. Như là một "luật sư phục hồi". Tôi đã nói rằng "Bạn phải thật sự thông minh để trở thành một luật sư". Tôi không đồng ý. Nếu bạn suy ngẫm về nó, tôi chắc rằng bạn đã gặp những người thông minh và không thông minh trong mọi tầng lớp xã hội và đáng ngạc nhiên, trong cùng một tầng lớp. Mặt khác, một số người mà bạn cho là thông minh đế làm bất cứ cái gì họ làm hoá ra lại là những người rất bình thường. 
 
 Một số nhân vật lớn trong lịch sử mà chúng tôi nhấn mạnh rằng họ là những người bình thường mà có những quyết định và lựa chọn phi thường. Những người mà ta chú ý lại làm những điều không đáng kể, và những người không đáng kể lại làm những điều đáng phải chú ý.
 
@@ -69,7 +69,7 @@ Hãy để đôi kết luận lại bây giờ. Động lực là kết quả c�
 
 Hãy để tôi làm rõ điểm này.
 
-Nó đã thật khó. Nó giờ thật khó. Nó sẽ tiếp tục khó. Thậm trí hôm nay tôi có một cuộc đấu tranh nội bộ, hầu như mỗi ngày, về những điều tôi đã làm trong nhiều năm. Một số ngày tôi có được động lực, nhưng tâm trí cua tôi vẫn muốn nói với tôi về cách dễ dàng hơn.
+Nó đã , đang và sẽ tiếp tục khó. Thậm trí hôm nay tôi có một cuộc đấu tranh nội tâm, hầu như mỗi ngày, về những điều tôi đã làm trong nhiều năm. Một số ngày tôi có được động lực, nhưng tâm trí cua tôi vẫn muốn nói với tôi về cách dễ dàng hơn.
 
 Tôi luôn luôn không muốn thực hành việc code, đọc sách, đạp xe thay vì đi xe điện, đến phòng tập gym, tránh ăn thêm một chiếc bánh. Tôi gần như không bao giờ cảm thấy thích nó. Mỗi ngày, tâm trí của tôi xuất hiện hàng trăm lý do hoặc những cách khác để lừa chính tôi theo cách dễ dàng. Điều dễ dàng hơn là cái mà tâm trí tôi đang làm. Bởi vì như Tony Robbins nói: 
 
@@ -95,11 +95,11 @@ Không, nó sẽ không. Nó sẽ khó hơn bạn mong đợi, nhưng có thể 
 
 Đọc lại câu đó
 
-Và nó sẽ mất nhiều thời gian hơn bạn đề ra cho nó. Đó là nơi mà hầu hết sự thất vọng sẽ đến từ việc thời gian trôi qua khiến bạn nghi ngờ và sợ hãi hơn. Bạn sẽ tìm kiếm chiến thắng nhanh chóng và danh hiệu dễ dàng. Chúng sẽ đến. Nhưng sau thời điểm bạn tưởng tượng ra, và như là một phần thưởng cho sự kiên trì trong quá khứ mệt mỏi, khi chúng không thể được gọi một cách hợp pháp nhanh chóng hoặc dễ dàng.
+Và nó sẽ mất nhiều thời gian hơn bạn đề ra cho nó. Đó là nơi mà hầu hết sự thất vọng sẽ đến từ việc thời gian trôi qua khiến bạn nghi ngờ và sợ hãi hơn. Bạn sẽ tìm kiếm chiến thắng nhanh chóng và những thành tựu dễ dàng. Chúng sẽ đến. Nhưng sau thời điểm bạn tưởng tượng ra, và như là một phần thưởng cho sự kiên trì trong quá khứ mệt mỏi, khi chúng không thể được gọi một cách hợp pháp nhanh chóng hoặc dễ dàng.
 
 ### Kỳ vọng sai 3: Cuộc sống của bạn sẽ thay đổi
 
-Có lẽ. Có thể không. Chỉ có một điều đảm bảo thay đổi. Đó là bạn
+Có thể có. Có thể không. Chỉ có một điều đảm bảo thay đổi. Đó là bạn
 
 Và nghiêm túc, đó làm điểm khởi đầu. Từ đó, bạn có thể vững bước đi theo hướng thay đổi cuộc sống mà bạn tìm kiếm. 
 
