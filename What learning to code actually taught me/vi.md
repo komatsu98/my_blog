@@ -8,14 +8,14 @@ Khi chúng ta già đi, niềm tin sẽ lấy mất động lực của chúng t
 
 Đây là một số điều bạn sẽ nhận ra: 
 
-* Bạn không thể dạy một kỹ thuật mới cho con chó già
+* Bạn không thể dạy cho một chú chó già những trò mới
 * Chỉ trẻ em mới có thể học những điều mới nhanh
 * Nó quá khó
 * Tôi ghét trường học hoặc trường đại học
 * Tốt hơn là nên tuân theo những gì bạn giỏi hơn là tìm hiểu nội dung mới
 * Tôi không có thời gian
-* Bạn đã trở thành một kẻ mọt sách / một thiên tài / một người có trí tuệ
-* Bạn phải có một tâm trí nhất định / tôi không phải là "loại"
+* Bạn phải trở thành một kẻ mọt sách / một thiên tài / một người đặc biệt thông minh
+* Bạn phải có một chút băn khoăn / tôi không phải là "loại"
 
 Chỉ điều cuối cùng là đúng, và không theo cách mà bạn đang dùng nó.
 
