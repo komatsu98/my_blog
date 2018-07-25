@@ -8,7 +8,7 @@ Khi chúng ta già đi, niềm tin sẽ lấy mất động lực của chúng t
 
 Đây là một số điều bạn sẽ nhận ra: 
 
-* Bạn không thể dạy một kỹ thuật mới cho con chó cũ
+* Bạn không thể dạy một kỹ thuật mới cho con chó già
 * Chỉ trẻ em mới có thể học những điều mới nhanh
 * Nó quá khó
 * Tôi ghét trường học hoặc trường đại học
