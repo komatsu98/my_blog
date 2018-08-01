@@ -14,7 +14,7 @@ Tôi thực sự thấy nó ý nghĩa. Tài liệu của composer là rất tố
 
 Một thư viện là một gói có thể tái sử dụng, ở đó bạn sẽ thêm như là một phụ thuộc, giống như `symfony/symfony`, `doctrine/orm` hoặc `elasticsearch/elasticsearch`
 
-Một dự án thường là một ứng dụng, nó phụ thuộc vào một số thư viện. Nót thì luôn luôn tái sử dụng được (không có dự án khác nào có thể yêu cầu (require) nó như là một phụ thuộc). Ví dụ điển hình là một trang web thương mại điện tử, hệ thống hỗ trợ khách hàng, ....
+Một dự án thường là một ứng dụng, nó phụ thuộc vào một số thư viện. Nó thì luôn luôn tái sử dụng được (không có dự án khác nào có thể yêu cầu (require) nó như là một phụ thuộc). Ví dụ điển hình là một trang web thương mại điện tử, hệ thống hỗ trợ khách hàng, ....
 
 Tôi sẽ phân biệt giữa thư viện và một dự án trong các mẹo bên dưới. 
 
@@ -128,7 +128,7 @@ Nhưng phải làm gì, nếu bạn gặp một xung đột merge trong `compose
 
 Đó là điều quan trọng cần lưu ý về sự khác nhau giữa khối `require` và `require-dev`
 
-Các package mà được require để chạy ứng dụng hơcj thư viện nên được xác định trong `require` (Ví dụ Symfony, Doctrine, Twig, Guzzle, …). Nếu bạn đang tạo một thư viện, hãy cẩn thận những gì bạn đặt vào `require`. Bởi vì mỗi phụ thuộc từ phiên này cũng là một phụ thuộc của ứng dụng, cái mà dùng với thư viện. 
+Các package mà được require để chạy ứng dụng hoặc thư viện nên được xác định trong `require` (Ví dụ Symfony, Doctrine, Twig, Guzzle, …). Nếu bạn đang tạo một thư viện, hãy cẩn thận những gì bạn đặt vào `require`. Bởi vì mỗi phụ thuộc từ phiên này cũng là một phụ thuộc của ứng dụng, cái mà dùng với thư viện. 
 
 Các package cần thiết cho quá trình phát triển ứng dụng ( hoặc thư viện) nên được xác định trong `require-dev` (ví dụ: PHPUnit, PHP_CodeSniffer, PHPStan)
 
