@@ -20,7 +20,7 @@ Một ví dụ về một công ty Đức đã trở thành "anti-fragile" là H
 
 Điều đó có thể được nhìn thấy với HARTING MICA, một khía cạnh gỉai pháp tính toán cho phép các bộ máy cũ cũ hơn có thể được trang bị thêm kỹ thuật số. Phần thân và phần cứng vẫn cho thấy tiêu chuẩn hoàn hảo của HARTING. Nhưng đối với phần mềm, mục tiêu là không đủ, bởi vì một microservice không bao giờ hoàn thành cũng không hoàn hảo. Kết quả là, các quyết định sai lầm có thể sửa chữa rất nhanh chóng và các hệ thống có thể phát triển nhanh hơn, tiếp cận được trạng thái anti-fragility. Nếu các yêu cầu thay đổi hoặc ông nghệ phần mềm tốt hơn trở nên sẵn sàng, mỗi dịch vụ micoservice có thể được ném ra và một dịch mới được tạo ra. Đó là cách bạn đạt được tốc độ và sự nhanh chóng trong số hoá các máy móc cũ và kết nối chúng với cloud trong một chi phí hợp lý. 
 
-### Lấy đi những sai lầm đáng sợ
+### Loại bỏ nỗi sợ từ những sai lầm
 
 Nếu bạn muốn trở thành anti-fagile, manh mẽ hơn, như HARTING và các công ty khác, bạn cần phải chủ động tìm kiếm những điểm yếu trong một hệ thống khi bạn thử nghiệm. Trong một hệ thống, điều đó nên được phát triển, tất cả các loại lỗi sẽ xảy ra mà bạn không thể dự đoán được, đặc biệt là khi các hệ thống cần phải mở rộng quy mô thành các vùng không xác định. Vì vậy, hệ thống của bạn bị lỗi liên tục và làm cho các hệ thống phụ bị hỏng khi sử dụng các công cụ như Netflix's Chaos Monkey.
 
