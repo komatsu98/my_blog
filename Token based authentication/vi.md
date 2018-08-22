@@ -1,7 +1,7 @@
 
 ## Giới thiệu
 
-Token based authentication nổi tiếng mọi nới trên nền tảng web ngày nay. Với hầu hết các công ty web sử dụng API, token là cách tốt nhất để xác thực cho nhiều user
+Token based authentication là phương thức nổi tiếng trên nền tảng web ngày nay. Với hầu hết các công ty web sử dụng API, token là cách tốt nhất để xác thực cho nhiều user
 
 Có một số yếu tố quan trọng khi chọn token dựa trên xác thực cho ứng dụng của bạn. Lý do chính cho token là : 
 Các máy chủ không trạng thái và có thể mở rộng
