@@ -16,7 +16,7 @@ Lập trình hướng chức năng là một **mô hình lập trình**, có ngh
 
 Code theo hướng chức năng có xu hướng ngắn gọn hơn, dễ hiểu hơn, và dễ kiểm tra hơn là code theo hướng imperative hoặc hướng đối tượng - nhưng nếu bạn không quen với nó và các pattern phổ biến liên quan tới nó, code hướng chức năng cũng trông có vẻ dày đặc hơn nhiều, và các tài liệu liên quan có thể không hiểu được với người mới.
 
-If you start googling functional programming terms, you're going to quickly hit a brick wall of academic lingo that can be very intimidating for beginners. To say it has a learning curve is a serious understatement. But if you've been programming in JavaScript for a while, chances are good that you've used a lot of functional programming concepts & utilities in your real software.
+Nếu bạn bắt đầu If you start googling functional programming terms, you're going to quickly hit a brick wall of academic lingo that can be very intimidating for beginners. To say it has a learning curve is a serious understatement. But if you've been programming in JavaScript for a while, chances are good that you've used a lot of functional programming concepts & utilities in your real software.
 
 > Don't let all the new words scare you away. It's a lot easier than it sounds.
 
