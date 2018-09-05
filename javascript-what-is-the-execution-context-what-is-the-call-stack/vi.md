@@ -11,12 +11,12 @@ Có phải là biến và hàm không ? Mọi người có thể học từng kh
 Nhưng những gì nằm ngoài những điều cơ bản ?
 
 What are the pillars of Javascript that you should master before calling yourself intermediate (or even senior) Javascript developer?
-
+Những nền tảng nào của Javascript mà bạn nên làm chủ trước khi gọi chính bạn là Javascript developer ở mức trung (hoặc senior)
 Có một số: Scope, Closure, Callbacks, Prototype, and so on.
 
 Nhưng trước khi đi sâu hơn vào các khai niệm này bạn nên ít nhất hiểu cách hoạt động của Javascript Engine.
 
-Trong bài viết nàu, chúng ta sẽ đi qua 2 phần cơ bản của mọi Javascript engine: ** the Execution Context and the Call Stack**
+Trong bài viết nàu, chúng ta sẽ đi qua 2 phần cơ bản của mọi Javascript engine: the Execution Context và the Call Stack
 
 (Đừng sợ. Nó dễ hơn bạn nghĩ)
 
